@@ -15,8 +15,14 @@ def analyze():
     try:
         file = request.files['image']
         npimg = np.fromfile(file, np.uint8)
-        img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
-        return str(img.shape)
+        rawimg = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+        height, width, channels = rawimg.shape
+        factor = 270/height
+        img = cv2.resize(rawimg, None, fx=factor, fy=factor)
+        templ = cv2.imread('./static/items/Liquid_Valkyrie.png')
+        result = cv2.matchTemplate(img, templ, cv2.TM_CCOEFF)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        return str(max_loc)
     except:
         return "An error occured."
     

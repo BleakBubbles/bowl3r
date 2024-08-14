@@ -36,6 +36,7 @@ export default function Home(){
         className="bg-blurple w-screen h-screen flex flex-col place-items-center"
         onPaste={(e) => {
           if (e.clipboardData.files.length) {
+              console.log("pasted");
               setImage(e.clipboardData.files[0])
           }
         }}>
