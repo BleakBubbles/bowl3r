@@ -6,11 +6,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'blurple': '#7289DA'
+        'blurple': '#5865F2',
+        'dark-blurple': '#454FBF',
+        'legacy-blurple': '#7289DA',
+        'legacy-dark-blurple' : '#4E5D94'
       },
       fontFamily: {
         poppinsBlack: ['"Poppins Black"', 'poppinsBlack'],
-        poppinsRegular: ['"Poppins Regular"', 'poppinsRegular']
+        poppinsRegular: ['"Poppins Regular"', 'poppinsRegular'],
+        poppinsSemiBold: ['"Poppins SemiBold"', 'poppinsSemiBold']
       }
     },
   },
