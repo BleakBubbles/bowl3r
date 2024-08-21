@@ -22,7 +22,7 @@ def analyze():
         height = rawimg.shape[0]
         factor = 270/height
         img = cv2.resize(rawimg, None, fx=factor, fy=factor, interpolation=cv2.INTER_NEAREST_EXACT)
-        img2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img2 = img.copy()
         if all:
             match(img, img2, 'actives', cv2.TM_SQDIFF_NORMED, 0.2, (0, 0, 255, 255))
             match(img, img2, 'guns', cv2.TM_SQDIFF_NORMED, 0.2, (255, 0, 0, 255))
@@ -43,7 +43,7 @@ def match(img, img2, type, method, threshold, color):
                 templ = cv2.imread(f'backend\\static\\{type}\\{item}', cv2.IMREAD_UNCHANGED)
                 h, w = templ.shape[:-1]
                 alpha_channel = np.array(cv2.split(templ)[3])
-                result = cv2.matchTemplate(img2, cv2.cvtColor(templ, cv2.COLOR_BGRA2GRAY), method, mask=alpha_channel)
+                result = cv2.matchTemplate(img2, cv2.cvtColor(templ, cv2.COLOR_BGRA2BGR), method, mask=alpha_channel)
                 min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
                 if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED] and min_val <= threshold:
                     cv2.rectangle(img, min_loc, (min_loc[0] + w, min_loc[1] + h), color, 1)
