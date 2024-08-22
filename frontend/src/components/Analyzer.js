@@ -51,7 +51,7 @@ export default function Analyzer({ children }) {
     }, [image]);
 
     return (
-        <div className="row-span-3 grid w-1/2 h-5/6 place-items-center bg-blurple drop-shadow-2xl rounded-3xl">
+        <div className="row-span-5 grid grid-rows-1 w-3/4 h-[94.444444%] self-start place-items-center bg-blurple drop-shadow-2xl rounded-3xl">
             {result ? (
                 <Container>
                     <Image url={result} pulse={false}/>

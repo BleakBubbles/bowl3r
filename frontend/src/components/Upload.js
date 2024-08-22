@@ -12,8 +12,8 @@ export default function Upload({ handleUpload }) {
         <div
             className={
                 hover
-                    ? "flex flex-col place-items-center cursor-pointer w-1/2 animate-pulse"
-                    : "flex flex-col place-items-center w-1/2"
+                    ? "flex flex-col justify-items-start items-center cursor-pointer w-1/2 animate-pulse"
+                    : "flex flex-col justify-items-start items-center w-1/2"
             }
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -24,7 +24,7 @@ export default function Upload({ handleUpload }) {
                 alt="upload"
                 src={hover ? chest2 : chest1}
             ></img>
-            <div className="text-white text-lg text-center font-poppinsSemiBold m-2 p-2 w-3/4 border-white border-4 rounded-3xl">
+            <div className="text-white text-3xl text-center font-poppinsSemiBold m-2 p-2 w-3/4 border-white border-8 rounded-3xl">
                 Upload screenshot above or paste from clipboard
             </div>
             <input
