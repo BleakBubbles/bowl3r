@@ -14,17 +14,6 @@ export default function Analyzer({ children }) {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const listener = (e) => {
-            if (e.clipboardData.files.length) {
-                setImage(e.clipboardData.files[0]);
-            }
-        };
-        window.addEventListener("paste", listener);
-
-        return () => window.removeEventListener("paste", listener);
-    }, []);
-
-    useEffect(() => {
         const analyze = async () => {
             setLoading(true);
             try {
@@ -51,7 +40,7 @@ export default function Analyzer({ children }) {
     }, [image]);
 
     return (
-        <div className="row-span-5 grid grid-rows-1 w-3/4 h-[94.444444%] self-start place-items-center bg-blurple drop-shadow-2xl rounded-3xl">
+        <div className="row-span-5 grid grid-rows-1 w-1/2 h-[92%] self-start place-items-center bg-slate-100 shadow-3xl rounded-3xl">
             {result ? (
                 <Container>
                     <Image url={result} pulse={false}/>

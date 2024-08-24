@@ -1,42 +1,58 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 import chest1 from "../assets/chest1.png";
 import chest2 from "../assets/chest2.png";
 
 export default function Upload({ handleUpload }) {
     const [hover, setHover] = useState(false);
-    const input = useRef(null);
+    const [open, setOpen] = useState(false);
+
+    const onDrop = useCallback((files) => {
+        handleUpload(files[0]);
+    });
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        accept: {
+            "image/png": [".png"],
+            "image/jpeg": [".jpeg"],
+        },
+    });
+
+    useEffect(() => {
+        const listener = (e) => {
+            if (e.clipboardData.files.length) {
+                handleUpload(e.clipboardData.files[0]);
+            }
+        };
+        window.addEventListener("paste", listener);
+
+        return () => window.removeEventListener("paste", listener);
+    }, []);
 
     return (
         <div
-            className={
-                hover
-                    ? "flex flex-col justify-items-start items-center cursor-pointer w-1/2 animate-pulse"
-                    : "flex flex-col justify-items-start items-center w-1/2"
-            }
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            onClick={() => input.current.click()}
+            {...getRootProps({
+                className:
+                    hover || isDragActive
+                        ? "grid grid-rows-12 place-items-center w-full h-full cursor-pointer bg-slate-300 border-blurple border-4 border-dashed rounded-3xl box-content animate-pulse"
+                        : "grid grid-rows-12 place-items-center w-full h-full cursor-pointer",
+                onMouseOver: () => setHover(true),
+                onMouseLeave: () => setHover(false),
+            })}
         >
             <img
-                className="w-3/4"
+                className="w-1/3 row-span-8 self-end"
                 alt="upload"
-                src={hover ? chest2 : chest1}
+                onMouseEnter={() => setOpen(true)}
+                onMouseLeave={() => setOpen(false)}
+                src={open || isDragActive ? chest2 : chest1}
             ></img>
-            <div className="text-white text-3xl text-center font-poppinsSemiBold m-2 p-2 w-3/4 border-white border-8 rounded-3xl">
-                Upload screenshot above or paste from clipboard
+            <div className="text-blurple text-lg text-center font-poppinsSemiBold m-2 w-full">
+                Upload, drag/drop, or paste screenshot
             </div>
-            <input
-                className="hidden"
-                ref={input}
-                type="file"
-                accept="image\png, image\jpeg, image\jpg, image\bmp"
-                onChange={(e) => {
-                    handleUpload(e.target.files[0]);
-                    e.target.value = "";
-                }}
-            ></input>
+            <input {...getInputProps()}></input>
         </div>
     );
 }

@@ -21,7 +21,7 @@ def analyze():
         rawimg = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
         height = rawimg.shape[0]
         factor = 270/height
-        img = cv2.resize(rawimg, None, fx=factor, fy=factor, interpolation=cv2.INTER_NEAREST_EXACT)
+        img = cv2.resize(rawimg, None, fx=factor, fy=factor, interpolation=cv2.INTER_NEAREST)
         img2 = img.copy()
         if all:
             match(img, img2, 'actives', cv2.TM_SQDIFF_NORMED, 0.2, (0, 0, 255, 255))
@@ -47,7 +47,6 @@ def match(img, img2, type, method, threshold, color):
                 min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
                 if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED] and min_val <= threshold:
                     cv2.rectangle(img, min_loc, (min_loc[0] + w, min_loc[1] + h), color, 1)
-                    print(f"{item}: {min_val}")
                 elif method in [cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR, cv2.TM_CCORR_NORMED] and max_val >= threshold:
                     cv2.rectangle(img, max_loc, (max_loc[0] + w, max_loc[1] + h), color, 1)
 
