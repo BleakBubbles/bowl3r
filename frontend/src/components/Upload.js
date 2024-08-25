@@ -36,7 +36,7 @@ export default function Upload({ handleUpload }) {
             {...getRootProps({
                 className:
                     hover || isDragActive
-                        ? "grid grid-rows-12 place-items-center w-full h-full cursor-pointer bg-slate-300 border-blurple border-4 border-dashed rounded-3xl box-content animate-pulse"
+                        ? "grid grid-rows-12 place-items-center w-full h-full cursor-pointer bg-slate-300 dark:bg-slate-700 border-blurple border-4 border-dashed rounded-3xl box-content"
                         : "grid grid-rows-12 place-items-center w-full h-full cursor-pointer",
                 onMouseOver: () => setHover(true),
                 onMouseLeave: () => setHover(false),
