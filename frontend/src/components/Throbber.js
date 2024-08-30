@@ -1,6 +1,4 @@
-import React from "react";
-
-import throbber from "../assets/throbber.svg"
+import React from "react"
 
 export default function Throbber() {
   return (

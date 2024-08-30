@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'blurple': '#597dce',
+        'blurple': '#698bdb',
         'dark-blurple': '#454FBF',
         'legacy-blurple': '#7289DA',
         'legacy-dark-blurple' : '#4E5D94'
@@ -21,6 +21,8 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
   darkMode: 'selector'
 }

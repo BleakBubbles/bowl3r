@@ -6,7 +6,7 @@ import Image from "./Image";
 import Throbber from "./Throbber";
 import Loading from "./Loading";
 import Upload from "./Upload";
-import Back from "./Back";
+import Button from "./Button";
 
 export default function Analyzer({ children }) {
     const [image, setImage] = useState(null);
@@ -40,15 +40,15 @@ export default function Analyzer({ children }) {
     }, [image]);
 
     return (
-        <div className="row-span-5 grid grid-rows-1 w-1/2 h-[92%] self-start place-items-center bg-slate-100 dark:bg-slate-900 shadow-3xl rounded-3xl">
+        <div className="row-span-5 grid grid-rows-1 w-1/2 h-[92%] self-start place-items-center bg-slate-200 dark:bg-slate-800 shadow-3xl rounded-3xl">
             {result ? (
                 <Container>
-                    <Image url={result} pulse={false}/>
-                    <Back handleBack={() => setResult(null)} />
+                    <Image url={result}/>
+                    <Button text="Back" action={() => setResult(null)} />
                 </Container>
             ) : loading ? (
                 <Container>
-                    <Image url={URL.createObjectURL(image)} pulse={false}/>
+                    <Image url={URL.createObjectURL(image)}/>
                     <Throbber />
                     <Loading />
                 </Container>

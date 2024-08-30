@@ -9,9 +9,10 @@ export default function Upload({ handleUpload }) {
     const [hover, setHover] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const onDrop = useCallback((files) => {
-        handleUpload(files[0]);
-    });
+    const onDrop = useCallback(
+        files => handleUpload(files[0]),
+        [handleUpload]
+    );
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         accept: {
@@ -29,7 +30,7 @@ export default function Upload({ handleUpload }) {
         window.addEventListener("paste", listener);
 
         return () => window.removeEventListener("paste", listener);
-    }, []);
+    }, [ handleUpload ]);
 
     return (
         <div
@@ -37,7 +38,7 @@ export default function Upload({ handleUpload }) {
                 className:
                     hover || isDragActive
                         ? "grid grid-rows-12 place-items-center w-full h-full cursor-pointer bg-slate-300 dark:bg-slate-700 border-blurple border-4 border-dashed rounded-3xl box-content"
-                        : "grid grid-rows-12 place-items-center w-full h-full cursor-pointer",
+                        : "grid grid-rows-12 place-items-center w-full h-full",
                 onMouseOver: () => setHover(true),
                 onMouseLeave: () => setHover(false),
             })}
@@ -49,7 +50,7 @@ export default function Upload({ handleUpload }) {
                 onMouseLeave={() => setOpen(false)}
                 src={open || isDragActive ? chest2 : chest1}
             ></img>
-            <div className="text-blurple text-lg text-center font-poppinsSemiBold m-2 w-full">
+            <div className="text-blurple text-xl text-center font-poppinsSemiBold m-2 w-full">
                 Upload, drag/drop, or paste screenshot
             </div>
             <input {...getInputProps()}></input>
