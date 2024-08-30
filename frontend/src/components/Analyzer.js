@@ -26,11 +26,11 @@ export default function Analyzer({ children }) {
                         headers: {
                             "Content-Type": "multipart/form-data",
                         },
-                        responseType: "blob",
                     }
                 );
-                const objectURL = URL.createObjectURL(response.data);
-                setResult(objectURL);
+                console.log(response);
+                // const objectURL = URL.createObjectURL(response.data);
+                setResult(`data:image/jpg;base64,${response.data.image}`);
             } catch (error) {
                 console.error("Error analyzing data: " + error);
             }
@@ -43,12 +43,12 @@ export default function Analyzer({ children }) {
         <div className="row-span-5 grid grid-rows-1 w-1/2 h-[92%] self-start place-items-center bg-slate-200 dark:bg-slate-800 shadow-3xl rounded-3xl">
             {result ? (
                 <Container>
-                    <Image url={result}/>
+                    <Image url={result} />
                     <Button text="Back" action={() => setResult(null)} />
                 </Container>
             ) : loading ? (
                 <Container>
-                    <Image url={URL.createObjectURL(image)}/>
+                    <Image url={URL.createObjectURL(image)} />
                     <Throbber />
                     <Loading />
                 </Container>
